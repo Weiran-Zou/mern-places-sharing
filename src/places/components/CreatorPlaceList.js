@@ -16,6 +16,8 @@ const CreatorPlaceList = (props) => {
                             id={place.id} 
                             imageUrl={place.image} 
                             title={place.title} 
+                            address={place.address}
+                            location={place.location}
                             description={place.description} 
                             creator={place.creator}
                         />

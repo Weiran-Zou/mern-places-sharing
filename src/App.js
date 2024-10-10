@@ -14,6 +14,7 @@ import LoadingSpinner from './shared/components/UIElements/LoadingSpinner.js';
 const Places = React.lazy(() => import('./places/pages/Places.js'));
 const NewPlace = React.lazy(() => import('./places/pages/NewPlace.js'));
 const UserPlaces = React.lazy(() => import('./places/pages/UserPlaces.js'));
+const PlaceDetails = React.lazy(() => import('./places/pages/PlaceDetails.js'));
 const UpdatePlace = React.lazy(() => import('./places/pages/UpdatePlace.js'));
 const Auth = React.lazy(() => import('./user/pages/Auth.js'));
 
@@ -35,7 +36,8 @@ function App() {
               <Route path="/" element={<Places />} />
               <Route path='/:userId/places' element={<UserPlaces />} />
               <Route path="/places/new" element={<NewPlace />} />'
-              <Route path="/places/:placeId" element={<UpdatePlace/>} />     
+              <Route path="/places/:placeId" element={<PlaceDetails/>} />   
+              <Route path="/places/:placeId/edit" element={<UpdatePlace/>} />     
               <Route path='/auth' element={!!token? <Navigate to="/"/> : <Auth/>} />  
             </Routes>
           </Suspense>

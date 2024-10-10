@@ -1,7 +1,20 @@
 .creator-place-item {
     width: 100%;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
 }
 
+.creator-place-container {
+    list-style: none;
+}
+
+.creator-place_modal{
+    top: 10vh !important;
+    overflow-y: auto;
+    max-height: 90vh;
+    
+}
 
 @media (min-width: 768px) and (max-width: 1200px){
     .creator-place-item {
