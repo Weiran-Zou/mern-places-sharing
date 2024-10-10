@@ -1,0 +1,17 @@
+.creator-place-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+}
+
+
+@media (min-width: 768px) {
+    .creator-place-list {
+        flex-direction: row;
+    }
+
+}
