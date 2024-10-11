@@ -8,7 +8,7 @@ import { AuthContext } from "../../shared/context/context";
 import { useHttpClient } from "../../shared/hooks/http-hook.js";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal.js";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner.js";
-
+import UserItem from "../../user/components/UserItem.js";
 const PlaceItem = (props) => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const auth = useContext(AuthContext);
@@ -79,6 +79,7 @@ const PlaceItem = (props) => {
             <li className="place-item">
                 <Card className="place-item__content">
                     {isLoading && <LoadingSpinner asOverlay/>}
+                    <UserItem id={props.creator.id} imageUrl={props.creator.image} name={props.creator.name} />
                     <div className="place-item__image">
                         <img src={props.imageUrl} alt={props.alt} />
                     </div>

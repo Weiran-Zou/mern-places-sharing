@@ -1,24 +1,23 @@
 import React, {useEffect, useState} from "react"
-import CreatorPlaceList from "../components/CreatorPlaceList.js";
+import UsersList from "../components/UsersList";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal.js";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner.js";
 import { useHttpClient } from "../../shared/hooks/http-hook.js";
 
-
 const Users = () => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
-    const [loadedPlaces, setLoadedPlaces] = useState();
+    const [loadedUsers, setLoadedUsers] = useState();
    
     useEffect(() => {
-        const fetchPlaces = async () => {
+        console.log("hi")
+        const fetchUsers = async () => {
             try {
-                const responseData = await sendRequest(process.env.REACT_APP_BACKEND_URL + '/places');     
-                setLoadedPlaces(responseData.places);  
-                console.log(responseData.places)
+                const responseData = await sendRequest(process.env.REACT_APP_BACKEND_URL + '/users');     
+                setLoadedUsers(responseData.users);  
             } catch(err) {}
             
         }
-        fetchPlaces();
+        fetchUsers();
        
     }, [sendRequest])
 
@@ -31,7 +30,7 @@ const Users = () => {
                     <LoadingSpinner asOverlay/>
                 </div>
             )}
-            {!isLoading && loadedPlaces && <CreatorPlaceList items={loadedPlaces} />}
+            {!isLoading && loadedUsers && <UsersList items={loadedUsers} />}
         </>
     )
     

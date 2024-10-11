@@ -12,7 +12,7 @@ const CreatorPlaceItem = (props) => {
             <Card >
                 <UserItem id={props.creator.id} imageUrl={props.creator.image} name={props.creator.name} />
                 <div className="place-item">
-                    <Card className="place-item__content">
+                    <div className="place-item__content">
                         <div className="place-item__image">
                             <img src={props.imageUrl} alt={props.alt} />
                         </div>
@@ -20,7 +20,7 @@ const CreatorPlaceItem = (props) => {
                             <h2>{props.title}</h2>
                             <p>{props.description}</p>
                         </div>
-                    </Card>
+                    </div>
                 </div>
                 
             </Card>

@@ -2,9 +2,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.place-details{
-   
-    width: 50%;
     list-style: none;
 }
