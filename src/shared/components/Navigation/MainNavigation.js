@@ -5,6 +5,7 @@ import MainHeader from "./MainHeader";
 import NavLinks from "./NavLinks";
 import SideDrawer from "./SideDrawer";
 import BackDrop from "../UIElements/BackDrop";
+import Logo from "../../../assets/images/logo-place-app.png"
 
 const MainNavigation = (props) => {
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
@@ -33,7 +34,8 @@ const MainNavigation = (props) => {
                     <span />
                     <span />
                 </button>
-                <h1 className="main-navigation__title"><Link to="/">YourPlaces</Link></h1>
+        
+                <Link to="/"><div className="nav-logo"><img src={Logo} alt="logo"/></div></Link>
                 <nav className="main-navigation__header-nav">
                     <NavLinks />
                 </nav>
