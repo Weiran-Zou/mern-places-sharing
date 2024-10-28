@@ -11,11 +11,14 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../context/context";
 
 const MainNavigation = (props) => {
+    
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
-    const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+    const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
     const auth = useContext(AuthContext);
+
     const dropDownToggle = () => {
-        setIsDropDownOpen(pre => !pre);
+        console.log(dropDownIsOpen)
+        setDropDownIsOpen(pre => !pre);
     }
     const openDrawer = () => {
         setDrawerIsOpen(true);
@@ -25,7 +28,7 @@ const MainNavigation = (props) => {
         setDrawerIsOpen(false);
         console.log(drawerIsOpen)
     }
-
+    
     return (
         <>
             {drawerIsOpen && <BackDrop onClick={closeDrawer}/>}
@@ -52,10 +55,10 @@ const MainNavigation = (props) => {
                         <NavLink className="user-profile" onClick={dropDownToggle}>
                             <Avatar imageUrl={auth.userImage} alt="..." />
                         </NavLink>
-                        {isDropDownOpen && (
+                        {dropDownIsOpen && (
                             <ul className="profile-dropDown-list">
-                                <li><NavLink to={`/${auth.userId}/places`} onClick={() => {setIsDropDownOpen(false)}}>MY PLACES</NavLink></li>
-                                <li ><a href="#" onClick={auth.logout}>Logout</a></li>
+                                <li><NavLink to={`/${auth.userId}`} onClick={() => {setDropDownIsOpen(false)}}>MY PROFILE</NavLink></li>
+                                <li ><a href="/#" onClick={() => {setDropDownIsOpen(false); auth.logout(); }}>Logout</a></li>
                             </ul>
                         )}
                         
