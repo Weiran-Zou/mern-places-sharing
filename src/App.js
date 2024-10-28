@@ -19,9 +19,9 @@ const UpdatePlace = React.lazy(() => import('./places/pages/UpdatePlace.js'));
 const Auth = React.lazy(() => import('./user/pages/Auth.js'));
 
 function App() {
-  const { token, userId, login, logout } = useAuth();
+  const { token, userId, userImage, login, logout } = useAuth();
   return (
-    <AuthContext.Provider value={{isLoggedIn: !!token, token: token, userId: userId, login: login, logout: logout}}>
+    <AuthContext.Provider value={{isLoggedIn: !!token, token: token, userId: userId, userImage: userImage, login: login, logout: logout}}>
       <BrowserRouter>
         <MainNavigation />
         <main>

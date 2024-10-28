@@ -70,7 +70,8 @@ const Auth = () => {
                     }),
                     {'Content-Type': 'application/json'}
                 );
-                auth.login(responseData.userId, responseData.token);
+                console.log(responseData.userImage)
+                auth.login(responseData.userId, responseData.userImage, responseData.token);
                 
             } catch(err) {
 

@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import {useState, useCallback, useEffect} from 'react';
 
 let logoutTimer;
 const useAuth = () => {
@@ -6,16 +6,19 @@ const useAuth = () => {
     const [token, setToken] = useState(null);
     const [tokenExpirationDate, setTokenExpirationDate] = useState();
     const [userId, setUserId] = useState(null);
+    const [userImage, setUserImage] = useState(null);
 
-    const login = useCallback((uid, token, expirationDate) => {
+    const login = useCallback((uid, userImage, token, expirationDate) => {
         setToken(token);
         setUserId(uid);
+        setUserImage(userImage);
         const tokenExpirationDate = expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
         setTokenExpirationDate(tokenExpirationDate);
         localStorage.setItem(
             'userData', 
             JSON.stringify({
             userId: uid, 
+            userImage: userImage,
             token: token,
             expiration: tokenExpirationDate.toISOString()
             })
@@ -26,6 +29,7 @@ const useAuth = () => {
     const logout = useCallback(() => {
         setToken(null);
         setUserId(null);
+        setUserImage(null);
         setTokenExpirationDate(null);
         localStorage.removeItem('userData');
     }, []);
@@ -47,11 +51,11 @@ const useAuth = () => {
             storedData.token && 
             new Date(storedData.expiration) > new Date()
         ) {
-            login(storedData.userId, storedData.token, new Date(storedData.expiration));
+            login(storedData.userId, storedData.userImage, storedData.token, new Date(storedData.expiration));
         }
     }, [login])
 
-    return { token, userId, login, logout }
+    return { token, userId, userImage, login, logout }
 
 }
 

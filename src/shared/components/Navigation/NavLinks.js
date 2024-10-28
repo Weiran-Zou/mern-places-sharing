@@ -3,9 +3,11 @@ import { NavLink } from "react-router-dom";
 import "./NavLinks.css"
 import { AuthContext } from "../../context/context";
 import Button from "../FormElements/Button";
+import Avatar from "../UIElements/Avatar"
 
 const NavLinks = () => {
     const auth = useContext(AuthContext);
+    console.log(auth)
     return (
         <ul className="nav-links">
             <li>
@@ -23,8 +25,16 @@ const NavLinks = () => {
             )}
             {!auth.isLoggedIn && (
                 <li>
-                    <NavLink to="/auth">AUTHENTICATE</NavLink>
+                    <NavLink to="/auth">SIGN IN</NavLink>
                 </li>
+            )}
+            {auth.isLoggedIn && (
+                
+                    <li className="user-item__image--default">
+                        <Avatar imageUrl={auth.userImage} alt="..." />  
+                    </li>
+                
+                
             )}
              {auth.isLoggedIn && (
                 <li>
