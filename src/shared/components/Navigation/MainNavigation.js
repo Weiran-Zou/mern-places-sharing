@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {Link} from "react-router-dom"
 import "./MainNavigation.css"
 import MainHeader from "./MainHeader";
@@ -6,9 +6,17 @@ import NavLinks from "./NavLinks";
 import SideDrawer from "./SideDrawer";
 import BackDrop from "../UIElements/BackDrop";
 import Logo from "../../../assets/images/logo-place-app.png"
+import Avatar from "../UIElements/Avatar"
+import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../context/context";
 
 const MainNavigation = (props) => {
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
+    const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+    const auth = useContext(AuthContext);
+    const dropDownToggle = () => {
+        setIsDropDownOpen(pre => !pre);
+    }
     const openDrawer = () => {
         setDrawerIsOpen(true);
         console.log(drawerIsOpen)
@@ -39,6 +47,21 @@ const MainNavigation = (props) => {
                 <nav className="main-navigation__header-nav">
                     <NavLinks />
                 </nav>
+                {auth.isLoggedIn && (
+                    <div className="user-item__image--default">
+                        <NavLink className="user-profile" onClick={dropDownToggle}>
+                            <Avatar imageUrl={auth.userImage} alt="..." />
+                        </NavLink>
+                        {isDropDownOpen && (
+                            <ul className="profile-dropDown-list">
+                                <li><NavLink to={`/${auth.userId}/places`} onClick={() => {setIsDropDownOpen(false)}}>MY PLACES</NavLink></li>
+                                <li ><a href="#" onClick={auth.logout}>Logout</a></li>
+                            </ul>
+                        )}
+                        
+                    </div>  
+                
+                )}
             </MainHeader>
         </>
     )
