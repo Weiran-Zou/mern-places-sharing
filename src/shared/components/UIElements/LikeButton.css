@@ -1,0 +1,14 @@
+.like-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: inherit;
+    
+}
+.like-btn span {
+    width: 1rem;
+    
+}
+.like-btn svg{
+    cursor: pointer;
+}

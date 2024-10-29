@@ -9,11 +9,25 @@ import { useHttpClient } from "../../shared/hooks/http-hook.js";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal.js";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner.js";
 import UserItem from "../../user/components/UserItem.js";
+import LikeButton from "../../shared/components/UIElements/LikeButton";
+
 const PlaceItem = (props) => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
+    const [isLiked, setIsLiked] = useState(false);
+    const [likeCount, setLikeCount] = useState(props.likeCount || 0);
     const auth = useContext(AuthContext);
     const [showMap, setShowMap] = useState(false);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const likeToggle = () => {
+        setIsLiked(pre => !pre);
+        if (!isLiked) {
+            setLikeCount(likeCount + 1);
+        } else {
+            setLikeCount(likeCount - 1);
+        }
+        
+    }
+    
     const openMap = () => {
         setShowMap(true);
     }
@@ -89,6 +103,8 @@ const PlaceItem = (props) => {
                         <p>{props.description}</p>
                     </div>
                     <div className="place-item__actions">
+                   
+                        <LikeButton isLiked={isLiked} likeCount={likeCount} onClick={likeToggle}/>
                         <Button inverse onClick={openMap}>VIEW ON MAP</Button>
                         {auth.userId === props.creatorId && <Button to={`/places/${props.id}/edit`}>EDIT</Button>}
                         {auth.userId === props.creatorId && <Button danger onClick={showDeleteHandler}>DELETE</Button>}

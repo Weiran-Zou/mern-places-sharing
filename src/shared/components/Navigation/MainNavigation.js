@@ -52,9 +52,9 @@ const MainNavigation = (props) => {
                 </nav>
                 {auth.isLoggedIn && (
                     <div className="user-item__image--default">
-                        <NavLink className="user-profile" onClick={dropDownToggle}>
+                        <a className="user-profile" onClick={dropDownToggle}>
                             <Avatar imageUrl={auth.userImage} alt="..." />
-                        </NavLink>
+                        </a>
                         {dropDownIsOpen && (
                             <ul className="profile-dropDown-list">
                                 <li><NavLink to={`/${auth.userId}`} onClick={() => {setDropDownIsOpen(false)}}>MY PROFILE</NavLink></li>

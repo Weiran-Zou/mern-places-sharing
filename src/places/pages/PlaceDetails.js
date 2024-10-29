@@ -6,6 +6,7 @@ import "./PlaceDetails.css"
 const PlaceDetails = () => {
     const location = useLocation();
     const place = location.state;
+    console.log(place)
     return (
         <div className="place-details-wrapper">
            
