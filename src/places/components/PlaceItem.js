@@ -10,14 +10,21 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal.js";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner.js";
 import UserItem from "../../user/components/UserItem.js";
 import LikeButton from "../../shared/components/UIElements/LikeButton";
+import { IoMdMore } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 const PlaceItem = (props) => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const [isLiked, setIsLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(props.likeCount || 0);
+    const [moreActionsIsOpen, setMoreActionsIsOpen] = useState(false);
     const auth = useContext(AuthContext);
     const [showMap, setShowMap] = useState(false);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const navigate = useNavigate();
     const likeToggle = () => {
         setIsLiked(pre => !pre);
         if (!isLiked) {
@@ -27,7 +34,13 @@ const PlaceItem = (props) => {
         }
         
     }
-    
+
+    const moreActionsToggle = () => {
+        console.log(auth.userId + " " + props.creator.id )
+
+        setMoreActionsIsOpen(pre => !pre);
+    }
+
     const openMap = () => {
         setShowMap(true);
     }
@@ -56,7 +69,12 @@ const PlaceItem = (props) => {
         } catch(err) {
 
         }
-        props.onDelete(props.id);
+        if (props.onDelete) {
+            props.onDelete(props.id);
+        } else { // delete place on details page
+            navigate('/');
+        }
+       
         
         console.log("Deletinh")
     } 
@@ -93,7 +111,16 @@ const PlaceItem = (props) => {
             <li className="place-item">
                 <Card className="place-item__content">
                     {isLoading && <LoadingSpinner asOverlay/>}
-                    <UserItem id={props.creator.id} imageUrl={props.creator.image} name={props.creator.name} />
+                    <div className="place-item__header">
+                        <UserItem id={props.creator.id} imageUrl={props.creator.image} name={props.creator.name} />
+                        {auth.userId === props.creator.id && <IoMdMore size="2rem" onClick={moreActionsToggle}/>}
+                        { moreActionsIsOpen && <div className="more-actions-list">
+                            <Link to={`/places/${props.id}/edit`}><FaEdit size="1rem"/><span>EDIT</span></Link>
+                            <a onClick={showDeleteHandler}><MdDelete size="1rem"/><span>DELETE</span></a>
+                        </div>}
+                        
+                    </div>
+                   
                     <div className="place-item__image">
                         <img src={props.imageUrl} alt={props.alt} />
                     </div>
@@ -106,8 +133,7 @@ const PlaceItem = (props) => {
                    
                         <LikeButton isLiked={isLiked} likeCount={likeCount} onClick={likeToggle}/>
                         <Button inverse onClick={openMap}>VIEW ON MAP</Button>
-                        {auth.userId === props.creatorId && <Button to={`/places/${props.id}/edit`}>EDIT</Button>}
-                        {auth.userId === props.creatorId && <Button danger onClick={showDeleteHandler}>DELETE</Button>}
+                       
                     </div>
                 </Card>
 

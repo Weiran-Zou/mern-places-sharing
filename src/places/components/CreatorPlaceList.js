@@ -20,6 +20,7 @@ const CreatorPlaceList = (props) => {
                             location={place.location}
                             description={place.description} 
                             creator={place.creator}
+                            
                         />
                     ))}
                 </div>

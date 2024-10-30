@@ -4,7 +4,6 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal.js";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner.js";
 import { useHttpClient } from "../../shared/hooks/http-hook.js";
 
-
 const Users = () => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const [loadedPlaces, setLoadedPlaces] = useState();
@@ -22,7 +21,6 @@ const Users = () => {
        
     }, [sendRequest])
 
-  
     return (
         <>
             <ErrorModal error={error} onClear={clearError} />
@@ -31,7 +29,7 @@ const Users = () => {
                     <LoadingSpinner asOverlay/>
                 </div>
             )}
-            {!isLoading && loadedPlaces && <CreatorPlaceList items={loadedPlaces} />}
+            {!isLoading && loadedPlaces && <CreatorPlaceList items={loadedPlaces}/>}
         </>
     )
     

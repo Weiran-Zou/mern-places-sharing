@@ -69,7 +69,7 @@ const UpdatePlace = () => {
             }
             
         );
-        navigate('/' + auth.userId + '/places');
+        navigate('/' + auth.userId );
     }
     if (!loadedPlace && !error) {
         return (
