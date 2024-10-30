@@ -32,6 +32,19 @@ const UserPlaces = () => {
         setLoadedPlaces(prePlaces => prePlaces.filter(place => place.id !== deletedPid))
     }
 
+    const placeUpdateHandler = (updatedPid,updatedPlace) => {
+        const newPlaces = loadedPlaces.map(p => {
+            if (p.id === updatedPid) {
+                return {
+                    ...p,
+                    ...updatedPlace
+                }
+            }
+            return p;
+        })
+        setLoadedPlaces(newPlaces)
+    }
+
     return (
         <>
             <ErrorModal error={error} onClear={clearError} />
@@ -41,7 +54,7 @@ const UserPlaces = () => {
                 </div>
             )}
           
-           {!isLoading && loadedPlaces && <PlaceList items={loadedPlaces} onDeletePlace={placeDeleteHandler} />}
+           {!isLoading && loadedPlaces && <PlaceList items={loadedPlaces} onDeletePlace={placeDeleteHandler} onUpdatePlace={placeUpdateHandler}/>}
         </>
         
     )

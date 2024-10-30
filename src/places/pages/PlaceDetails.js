@@ -11,7 +11,14 @@ const PlaceDetails = () => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const [loadedPlace, setLoadedPlace] = useState();
     const placeId = useParams().placeId;
-    console.log(loadedPlace)
+    const placeUpdateHandler = (updatedPid,updatedPlace) => {
+        const newPlace = {
+            ...loadedPlace,
+            ...updatedPlace
+        }
+        setLoadedPlace(newPlace)
+    }
+
     useEffect(() => {
 
         const fetchPlace = async () => {
@@ -34,7 +41,7 @@ const PlaceDetails = () => {
                 address={loadedPlace.address}
                 creator={loadedPlace.creator}
                 coordinates={loadedPlace.location}
-               
+                onUpdate={placeUpdateHandler}
             />}
         
         </div>

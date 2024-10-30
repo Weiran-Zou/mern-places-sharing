@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import UpdatePlaceModal from "./UpdatePlaceModal.js";
 
 const PlaceItem = (props) => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
@@ -24,6 +25,7 @@ const PlaceItem = (props) => {
     const auth = useContext(AuthContext);
     const [showMap, setShowMap] = useState(false);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [showEdit, setShowEdit] = useState(false);
     const navigate = useNavigate();
     const likeToggle = () => {
         setIsLiked(pre => !pre);
@@ -47,6 +49,12 @@ const PlaceItem = (props) => {
 
     const closeMap = () => {
         setShowMap(false);
+    }
+    const openEdit = () => {
+        setShowEdit(true);
+    }
+    const closeEdit = () => {
+        setShowEdit(false);
     }
 
     const showDeleteHandler = () => {
@@ -108,6 +116,14 @@ const PlaceItem = (props) => {
             >
                 <p>Do you want to proceed and deleted this place?</p>
             </Modal>
+            <UpdatePlaceModal 
+                show={showEdit} 
+                onCancel={closeEdit} 
+                id={props.id}
+                title={props.title}
+                description={props.description}
+                onUpdate={props.onUpdate}
+            ></UpdatePlaceModal>
             <li className="place-item">
                 <Card className="place-item__content">
                     {isLoading && <LoadingSpinner asOverlay/>}
@@ -115,7 +131,7 @@ const PlaceItem = (props) => {
                         <UserItem id={props.creator.id} imageUrl={props.creator.image} name={props.creator.name} />
                         {auth.userId === props.creator.id && <IoMdMore size="2rem" onClick={moreActionsToggle}/>}
                         { moreActionsIsOpen && <div className="more-actions-list">
-                            <Link to={`/places/${props.id}/edit`}><FaEdit size="1rem"/><span>EDIT</span></Link>
+                            <a onClick={openEdit}><FaEdit size="1rem"/><span>EDIT</span></a>
                             <a onClick={showDeleteHandler}><MdDelete size="1rem"/><span>DELETE</span></a>
                         </div>}
                         
