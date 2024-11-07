@@ -122,6 +122,7 @@ const PlaceItem = (props) => {
                 id={props.id}
                 title={props.title}
                 description={props.description}
+                imageUrl={props.imageUrl}
                 onUpdate={props.onUpdate}
             ></UpdatePlaceModal>
             <li className="place-item">

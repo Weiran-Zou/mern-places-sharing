@@ -4,8 +4,8 @@ import Button from './Button';
 
 const ImageUpload = (props) => {
     const [file, setFile] = useState();
-    const [previewUrl, setPrievewUrl] = useState();
-    const [isValid, setIsValid] = useState(false);
+    const [previewUrl, setPrievewUrl] = useState(props.imageUrl || "");
+    const [isValid, setIsValid] = useState(props.imageUrl || false);
 
     const filePickerRef = useRef();
 

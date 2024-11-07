@@ -9,6 +9,7 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal.js";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner.js";
 import {AuthContext} from '../../shared/context/context.js';
 import Modal from "../../shared/components/UIElements/Modal.js";
+import ImageUpload from "../../shared/components/FormElements/ImageUpload.js";
 
 const UpdatePlaceModal = (props) => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient()
@@ -58,6 +59,7 @@ const UpdatePlaceModal = (props) => {
             onCancel={props.onCancel}
             header="Edit Place"
             footerClass="place-item__modal-actions"
+            style={{top:"5%",overflowY:"auto"}}
         >
             <ErrorModal error={error} onClear={clearError} />
             {isLoading && <LoadingSpinner asOverlay/>}
@@ -72,6 +74,7 @@ const UpdatePlaceModal = (props) => {
                     initialValue={props.title}
                     initialIsValid={true}
                 />
+                <ImageUpload center id="image" name="image" imageUrl={props.imageUrl} onInput={inputHandler} errorText="Please provide an image"/>
                 <Input 
                     id="description"
                     element="textarea" 
@@ -82,6 +85,17 @@ const UpdatePlaceModal = (props) => {
                     initialValue={props.description}
                     initialIsValid={true}
                 />
+                 <Input 
+                    id="address"
+                    element="input" 
+                    label="address" 
+                    validators={[VALIDATOR_REQUIRE()]} 
+                    errorText="Please enter a valid address."
+                    onInput={inputHandler}
+                    initialValue={props.address}
+                    initialIsValid={true}
+                />
+
                <Button disabled={!formState.isValid} onClick={placeSubmitHandler}> UPDATE PLACE </Button>
                <Button inverse onClick={props.onCancel}>CANCEL</Button>
               
