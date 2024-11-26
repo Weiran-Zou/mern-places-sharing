@@ -9,9 +9,7 @@
   width: 100%;
   height: 100%;
   text-decoration: none;
-  padding: 1rem;
   color: white;
-
 }
 
 .user-item__content--default {
@@ -50,7 +48,6 @@
   width: 100%;
   height: 100%;
   text-decoration: none;
-  padding: 1rem;
   cursor: default;
  
 }

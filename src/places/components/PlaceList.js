@@ -6,7 +6,7 @@ import Button from "../../shared/components/FormElements/Button";
 
 const PlaceList = (props) => {
     return (
-        <>
+        <div className="place-list-container">
             {props.items.length === 0
             ? (
                 <div className="place-list center">
@@ -36,7 +36,7 @@ const PlaceList = (props) => {
                 </ul>
             )
             }
-        </>
+        </div>
     )
 }
 

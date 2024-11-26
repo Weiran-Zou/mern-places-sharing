@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from "react"
-import CreatorPlaceList from "../components/CreatorPlaceList.js";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal.js";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner.js";
 import { useHttpClient } from "../../shared/hooks/http-hook.js";
+import PlaceList from "../components/PlaceList.js";
 
-const Users = () => {
+const Users = (props) => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const [loadedPlaces, setLoadedPlaces] = useState();
-   
+    const url = props.userId ? `${process.env.REACT_APP_BACKEND_URL}/places/user/${props.userId}` : `${process.env.REACT_APP_BACKEND_URL}/places`
     useEffect(() => {
         const fetchPlaces = async () => {
             try {
-                const responseData = await sendRequest(process.env.REACT_APP_BACKEND_URL + '/places');     
+                const responseData = await sendRequest(url);     
                 setLoadedPlaces(responseData.places);  
                 console.log(responseData.places)
             } catch(err) {}
@@ -20,6 +20,22 @@ const Users = () => {
         fetchPlaces();
        
     }, [sendRequest])
+    const placeDeleteHandler = (deletedPid) => {
+        setLoadedPlaces(prePlaces => prePlaces.filter(place => place.id !== deletedPid))
+    }
+
+    const placeUpdateHandler = (updatedPid,updatedPlace) => {
+        const newPlaces = loadedPlaces.map(p => {
+            if (p.id === updatedPid) {
+                return {
+                    ...p,
+                    ...updatedPlace
+                }
+            }
+            return p;
+        })
+        setLoadedPlaces(newPlaces)
+    }
 
     return (
         <>
@@ -29,7 +45,7 @@ const Users = () => {
                     <LoadingSpinner asOverlay/>
                 </div>
             )}
-            {!isLoading && loadedPlaces && <CreatorPlaceList items={loadedPlaces}/>}
+            {!isLoading && loadedPlaces &&  <PlaceList items={loadedPlaces} onDeletePlace={placeDeleteHandler} onUpdatePlace={placeUpdateHandler}/>}
         </>
     )
     

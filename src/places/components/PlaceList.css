@@ -1,6 +1,14 @@
+.place-list-container {
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+}
 .place-list {
+  display: flex;
+  flex-direction: column;
   list-style: none;
   padding: 0;
   width: 100%;
-  max-width: 40rem;
+  row-gap: 2rem;
+ 
 }

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useHttpClient } from "../../shared/hooks/http-hook.js";
 import UserItem from "../../user/components/UserItem.js";
-import UserPlaces from "../../places/pages/UserPlaces"
+import Places from "../../places/pages/Places"
 import ErrorModal from "../../shared/components/UIElements/ErrorModal.js";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner.js";
 
@@ -69,7 +69,7 @@ const User = () => {
                 {activeTab === 'myPlaces' && (    
                     <>
                         <h2 className="tab-heading">My places</h2> 
-                        <UserPlaces />  
+                        <Places userId={userId}/>  
                     </>
                 )}
                 {activeTab === 'myCollections' && (

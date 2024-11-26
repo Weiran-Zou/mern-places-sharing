@@ -123,10 +123,14 @@ const PlaceItem = (props) => {
                 title={props.title}
                 description={props.description}
                 imageUrl={props.imageUrl}
+                address={props.address}
                 onUpdate={props.onUpdate}
             ></UpdatePlaceModal>
-            <li className="place-item">
-                <Card className="place-item__content">
+            <Card className="place-item">
+                <div className="place-item__image">
+                        <img src={props.imageUrl} alt={props.alt} />
+                </div>
+                <div className="place-item__content">
                     {isLoading && <LoadingSpinner asOverlay/>}
                     <div className="place-item__header">
                         <UserItem id={props.creator.id} imageUrl={props.creator.image} name={props.creator.name} />
@@ -138,9 +142,7 @@ const PlaceItem = (props) => {
                         
                     </div>
                    
-                    <div className="place-item__image">
-                        <img src={props.imageUrl} alt={props.alt} />
-                    </div>
+                   
                     <div className="place-item__info">
                         <h2>{props.title}</h2>
                         <h3> {props.address} </h3>
@@ -152,9 +154,9 @@ const PlaceItem = (props) => {
                         <Button inverse onClick={openMap}>VIEW ON MAP</Button>
                        
                     </div>
-                </Card>
+                </div>
 
-            </li>
+            </Card>
         </>
     )
 }
