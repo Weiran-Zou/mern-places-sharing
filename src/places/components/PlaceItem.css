@@ -17,6 +17,12 @@
   cursor: pointer;
 }
 
+.place-item__header-actions {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+}
+
 .more-actions-list {
   position: absolute;
   top:80%;

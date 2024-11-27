@@ -27,14 +27,32 @@ const PlaceItem = (props) => {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const navigate = useNavigate();
-    const likeToggle = () => {
+
+    const likeToggle = async () => {
         setIsLiked(pre => !pre);
+        
         if (!isLiked) {
+            
             setLikeCount(likeCount + 1);
         } else {
             setLikeCount(likeCount - 1);
         }
-        
+        try {
+            await sendRequest(
+                `${process.env.REACT_APP_BACKEND_URL}/places/${props.id}/like`,
+                'PATCH', 
+                null,
+                {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + auth.token
+                }
+            );
+           
+        } catch(err) {
+            // undo like actions
+            setIsLiked(isLiked);
+            setLikeCount(likeCount);
+        }  
     }
 
     const moreActionsToggle = () => {
@@ -133,18 +151,21 @@ const PlaceItem = (props) => {
                 <div className="place-item__content">
                     {isLoading && <LoadingSpinner asOverlay/>}
                     <div className="place-item__header">
-                        <UserItem id={props.creator.id} imageUrl={props.creator.image} name={props.creator.name} />
-                        {auth.userId === props.creator.id && <IoMdMore size="2rem" onClick={moreActionsToggle}/>}
-                        { moreActionsIsOpen && <div className="more-actions-list">
-                            <a onClick={openEdit}><FaEdit size="1rem"/><span>EDIT</span></a>
-                            <a onClick={showDeleteHandler}><MdDelete size="1rem"/><span>DELETE</span></a>
-                        </div>}
+                        <h2>{props.title}</h2>
+                        <div className="place-item__header-actions">
+                            <UserItem id={props.creator.id} imageUrl={props.creator.image} name={props.creator.name} />
+                            {auth.userId === props.creator.id && <IoMdMore size="2rem" onClick={moreActionsToggle}/>}
+                            { moreActionsIsOpen && <div className="more-actions-list">
+                                <a onClick={openEdit}><FaEdit size="1rem"/><span>EDIT</span></a>
+                                <a onClick={showDeleteHandler}><MdDelete size="1rem"/><span>DELETE</span></a>
+                            </div>}
+                        </div>
                         
                     </div>
                    
                    
                     <div className="place-item__info">
-                        <h2>{props.title}</h2>
+                        
                         <h3> {props.address} </h3>
                         <p>{props.description}</p>
                     </div>
