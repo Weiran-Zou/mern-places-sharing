@@ -29,8 +29,10 @@ const PlaceItem = (props) => {
     const navigate = useNavigate();
 
     const likeToggle = async () => {
+        if (!auth.token) {
+            navigate('/auth')
+        }
         setIsLiked(pre => !pre);
-        
         if (!isLiked) {
             
             setLikeCount(likeCount + 1);
