@@ -1,17 +1,19 @@
 import "./User.css"
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useHttpClient } from "../../shared/hooks/http-hook.js";
 import UserItem from "../../user/components/UserItem.js";
 import Places from "../../places/pages/Places"
 import ErrorModal from "../../shared/components/UIElements/ErrorModal.js";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner.js";
+import { AuthContext } from "../../shared/context/context.js";
 
 const User = () => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const [loadedUser, setLoadedUser] = useState();
-    const [activeTab, setActiveTab] = useState('myPlaces');
+    const [activeTab, setActiveTab] = useState('Places');
     const userId = useParams().userId;
+    const auth = useContext(AuthContext);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -52,28 +54,27 @@ const User = () => {
             <div className="profile-tab-links">
                 <a
                     href="/#"
-                    className={activeTab === 'myPlaces' ? 'profile-tab-active' : ''}
-                    onClick={e => tabLinkHandler(e, 'myPlaces')}
+                    className={activeTab === 'Places' ? 'profile-tab-active' : ''}
+                    onClick={e => tabLinkHandler(e, 'Places')}
                 >
-                    My Places
+                    Places
                 </a>
-                <a
+                {userId === auth.userId && <a
                     href="/#"
-                    className={activeTab === 'myCollections' ? 'profile-tab-active' : ''}
-                    onClick={e => tabLinkHandler(e, 'myCollections')}
+                    className={activeTab === 'Likes' ? 'profile-tab-active' : ''}
+                    onClick={e => tabLinkHandler(e, 'Likes')}
                 >
-                    My Collections
-                </a>
+                    Likes
+                </a>}
             </div>
             <div className="profile-tab-content">
-                {activeTab === 'myPlaces' && (    
+                {activeTab === 'Places' && (    
                     <>
-                        <h2 className="tab-heading">My places</h2> 
                         <Places userId={userId}/>  
                     </>
                 )}
-                {activeTab === 'myCollections' && (
-                    <h2 className="tab-heading">My collections</h2>
+                {activeTab === 'Likes' && (
+                    <></>
                 )}
             </div>
         </div>
