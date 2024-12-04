@@ -21,8 +21,8 @@ const PlaceList = (props) => {
                 <ul className="place-list">
                     {props.items.map(place => (
                         <PlaceItem 
-                            key={place.id} 
-                            id={place.id} 
+                            key={place.id || place._id} 
+                            id={place.id || place._id} 
                             imageUrl={place.image} 
                             title={place.title} 
                             description={place.description} 
@@ -31,6 +31,8 @@ const PlaceList = (props) => {
                             coordinates={place.location}
                             onDelete={props.onDeletePlace}
                             onUpdate={props.onUpdatePlace}
+                            isLiked={place.isLiked}
+                            likeCount={place.likeCount}
                         />
                     ))}
                 </ul>

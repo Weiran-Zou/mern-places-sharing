@@ -19,8 +19,8 @@ import UpdatePlaceModal from "./UpdatePlaceModal.js";
 
 const PlaceItem = (props) => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
-    const [isLiked, setIsLiked] = useState(false);
-    const [likeCount, setLikeCount] = useState(props.likeCount || 0);
+    const [isLiked, setIsLiked] = useState(props.isLiked);
+    const [likeCount, setLikeCount] = useState(props.likeCount);
     const [moreActionsIsOpen, setMoreActionsIsOpen] = useState(false);
     const auth = useContext(AuthContext);
     const [showMap, setShowMap] = useState(false);
@@ -155,7 +155,7 @@ const PlaceItem = (props) => {
                     <div className="place-item__header">
                         <h2>{props.title}</h2>
                         <div className="place-item__header-actions">
-                            <UserItem id={props.creator.id} imageUrl={props.creator.image} name={props.creator.name} />
+                            <UserItem id={props.creator.id || props.creator._id} imageUrl={props.creator.image} name={props.creator.name} />
                             {auth.userId === props.creator.id && <IoMdMore size="2rem" onClick={moreActionsToggle}/>}
                             { moreActionsIsOpen && <div className="more-actions-list">
                                 <a onClick={openEdit}><FaEdit size="1rem"/><span>EDIT</span></a>

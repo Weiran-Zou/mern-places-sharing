@@ -1,17 +1,27 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useState, useContext} from "react"
 import ErrorModal from "../../shared/components/UIElements/ErrorModal.js";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner.js";
 import { useHttpClient } from "../../shared/hooks/http-hook.js";
 import PlaceList from "../components/PlaceList.js";
+import { AuthContext } from "../../shared/context/context.js";
 
 const Users = (props) => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const [loadedPlaces, setLoadedPlaces] = useState();
+    const auth = useContext(AuthContext);
     const url = props.userId ? `${process.env.REACT_APP_BACKEND_URL}/places/user/${props.userId}` : `${process.env.REACT_APP_BACKEND_URL}/places`
     useEffect(() => {
         const fetchPlaces = async () => {
             try {
-                const responseData = await sendRequest(url);     
+                const responseData = auth.isLoggedIn ? 
+                    await sendRequest(
+                        url, 
+                        'GET',
+                        null,
+                        {
+                            Authorization: 'Bearer ' + auth.token
+                        }
+                    ) : await sendRequest(url);     
                 setLoadedPlaces(responseData.places);  
                 console.log(responseData.places)
             } catch(err) {}
