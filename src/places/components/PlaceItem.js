@@ -29,9 +29,7 @@ const PlaceItem = (props) => {
     const navigate = useNavigate();
 
     const likeToggle = async () => {
-        if (props.likedPlaceByCurrentUser) {
-            props.onDelete(props.id);
-        }
+        
         if (!auth.isLoggedIn) {
             navigate('/auth')
         }
@@ -52,6 +50,9 @@ const PlaceItem = (props) => {
                     Authorization: 'Bearer ' + auth.token
                 }
             );
+            if (props.likedPlaceByCurrentUser) {
+                props.onDelete(props.id);
+            }
            
         } catch(err) {
             // undo like actions
@@ -152,7 +153,7 @@ const PlaceItem = (props) => {
                         <h2>{props.title}</h2>
                         <div className="place-item__header-actions">
                             <UserItem id={props.creator.id || props.creator._id} imageUrl={props.creator.image} name={props.creator.name} />
-                            {auth.userId === props.creator.id && <IoMdMore size="2rem" onClick={moreActionsToggle}/>}
+                            {auth.userId === (props.creator.id || props.creator._id) && <IoMdMore size="2rem" onClick={moreActionsToggle}/>}
                             { moreActionsIsOpen && <div className="more-actions-list">
                                 <a onClick={openEdit}><FaEdit size="1rem"/><span>EDIT</span></a>
                                 <a onClick={showDeleteHandler}><MdDelete size="1rem"/><span>DELETE</span></a>
