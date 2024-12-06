@@ -31,8 +31,9 @@ const PlaceList = (props) => {
                             coordinates={place.location}
                             onDelete={props.onDeletePlace}
                             onUpdate={props.onUpdatePlace}
-                            isLiked={place.isLiked}
+                            isLiked={props.likes || place.isLiked}
                             likeCount={place.likeCount}
+                            likedPlaceByCurrentUser={props.likes}
                         />
                     ))}
                 </ul>

@@ -28,7 +28,7 @@ const User = () => {
         fetchUser();
     }, [sendRequest, userId])
 
-    const tabLinkHandler = (e, tabName) => {
+    const tabLinkHandler = async (e, tabName) => {
         e.preventDefault();
         setActiveTab(tabName);
     }
@@ -74,7 +74,9 @@ const User = () => {
                     </>
                 )}
                 {activeTab === 'Likes' && (
-                    <></>
+                    <>
+                        <Places userId={userId} likes/>  
+                    </>
                 )}
             </div>
         </div>

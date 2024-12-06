@@ -9,7 +9,16 @@ const Users = (props) => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const [loadedPlaces, setLoadedPlaces] = useState();
     const auth = useContext(AuthContext);
-    const url = props.userId ? `${process.env.REACT_APP_BACKEND_URL}/places/user/${props.userId}` : `${process.env.REACT_APP_BACKEND_URL}/places`
+    let url;
+    if (props.userId && props.likes) {
+        url = `${process.env.REACT_APP_BACKEND_URL}/places/user/${props.userId}/likes`
+    } else if (props.userId) {
+        url = `${process.env.REACT_APP_BACKEND_URL}/places/user/${props.userId}`
+    } else {
+        url = `${process.env.REACT_APP_BACKEND_URL}/places`
+    }
+    console.log(url)
+    
     useEffect(() => {
         const fetchPlaces = async () => {
             try {
@@ -55,7 +64,7 @@ const Users = (props) => {
                     <LoadingSpinner asOverlay/>
                 </div>
             )}
-            {!isLoading && loadedPlaces &&  <PlaceList items={loadedPlaces} onDeletePlace={placeDeleteHandler} onUpdatePlace={placeUpdateHandler}/>}
+            {!isLoading && loadedPlaces &&  <PlaceList items={loadedPlaces} onDeletePlace={placeDeleteHandler} onUpdatePlace={placeUpdateHandler} likes={props.likes}/>}
         </>
     )
     

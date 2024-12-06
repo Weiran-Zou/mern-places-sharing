@@ -29,7 +29,10 @@ const PlaceItem = (props) => {
     const navigate = useNavigate();
 
     const likeToggle = async () => {
-        if (!auth.token) {
+        if (props.likedPlaceByCurrentUser) {
+            props.onDelete(props.id);
+        }
+        if (!auth.isLoggedIn) {
             navigate('/auth')
         }
         setIsLiked(pre => !pre);
@@ -94,17 +97,10 @@ const PlaceItem = (props) => {
                 null,
                 {Authorization: 'Bearer ' + auth.token}
             );
+            props.onDelete(props.id);
         } catch(err) {
 
         }
-        if (props.onDelete) {
-            props.onDelete(props.id);
-        } else { // delete place on details page
-            navigate('/');
-        }
-       
-        
-        console.log("Deletinh")
     } 
 
     return (
