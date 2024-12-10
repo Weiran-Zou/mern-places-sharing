@@ -1,10 +1,9 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, { useState, useEffect } from "react";
 import PlaceItem from "../components/PlaceItem"
 import { useHttpClient } from "../../shared/hooks/http-hook.js";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal.js";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner.js";
 import { useParams } from 'react-router-dom';
-import Card from "../../shared/components/UIElements/Card";
 
 import "./PlaceDetails.css"
 const PlaceDetails = () => {
@@ -42,6 +41,7 @@ const PlaceDetails = () => {
                 creator={loadedPlace.creator}
                 coordinates={loadedPlace.location}
                 onUpdate={placeUpdateHandler}
+                details="details"
             />}
         
         </div>

@@ -12,10 +12,12 @@ import UserItem from "../../user/components/UserItem.js";
 import LikeButton from "../../shared/components/UIElements/LikeButton";
 import { IoMdMore } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { IconContext } from "react-icons";
+import { FaLocationDot } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import UpdatePlaceModal from "./UpdatePlaceModal.js";
+import { Link } from "react-router-dom";
 
 const PlaceItem = (props) => {
     const {isLoading, error, sendRequest, clearError} = useHttpClient();
@@ -161,15 +163,30 @@ const PlaceItem = (props) => {
                         </div>
                         
                     </div>
-                   
+                    <IconContext.Provider
+                            value={{ color: `var(--secondary)`, size: '2rem' }}
+                        >
+                        <div className="place-item__info-loc">
+                            <FaLocationDot />
+                            <span> {props.address} </span>
+                        </div>
+                    </IconContext.Provider>
                    
                     <div className="place-item__info">
                         
-                        <h3> {props.address} </h3>
-                        <p>{props.description}</p>
+                        {props.details ?
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            :
+                            <>
+                                <p className="place-item__info-compact">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<Link to={`/places/${props.id || props._id}`}>view more</Link></p>
+                                <span className="place-item__info-viewMore"><Link to={`/places/${props.id || props._id}`}>view more</Link></span>
+                            </>
+                        }
+                        {/* <p>{props.description}</p> */}
+                        
                     </div>
                     <div className="place-item__actions">
-                   
+                                
                         <LikeButton isLiked={isLiked} likeCount={likeCount} onClick={likeToggle}/>
                         <Button inverse onClick={openMap}>VIEW ON MAP</Button>
                        
