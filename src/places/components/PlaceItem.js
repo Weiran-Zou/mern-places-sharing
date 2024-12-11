@@ -173,17 +173,14 @@ const PlaceItem = (props) => {
                     </IconContext.Provider>
                    
                     <div className="place-item__info">
-                        
-                        {props.details ?
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                            :
+                        {props.details ? (
+                            <p>{props.description}</p>
+                        ) : (
                             <>
-                                <p className="place-item__info-compact">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<Link to={`/places/${props.id || props._id}`}>view more</Link></p>
+                                <p className="place-item__info-compact">{props.description}</p>
                                 <span className="place-item__info-viewMore"><Link to={`/places/${props.id || props._id}`}>view more</Link></span>
                             </>
-                        }
-                        {/* <p>{props.description}</p> */}
-                        
+                        )}
                     </div>
                     <div className="place-item__actions">
                                 
