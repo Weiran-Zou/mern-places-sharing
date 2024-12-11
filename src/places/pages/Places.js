@@ -40,12 +40,12 @@ const Users = (props) => {
        
     }, [sendRequest])
     const placeDeleteHandler = (deletedPid) => {
-        setLoadedPlaces(prePlaces => prePlaces.filter(place => place.id !== deletedPid))
+        setLoadedPlaces(prePlaces => prePlaces.filter(place => place.id || place._id !== deletedPid))
     }
 
     const placeUpdateHandler = (updatedPid,updatedPlace) => {
         const newPlaces = loadedPlaces.map(p => {
-            if (p.id === updatedPid) {
+            if (p.id || p._id  === updatedPid) {
                 return {
                     ...p,
                     ...updatedPlace
